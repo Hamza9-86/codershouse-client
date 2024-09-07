@@ -38,6 +38,8 @@ export const useWebRTC = (roomId, user) => {
             await captureMedia();
             addNewClient({ ...user, muted: true }, () => {
                 const localElement = audioElements.current[user.id];
+                //console.log("Local ele",localElement.current);
+                
                 if (localElement) {
                     localElement.volume = 0;
                     localElement.srcObject = localMediaStream.current;
@@ -84,6 +86,8 @@ export const useWebRTC = (roomId, user) => {
                 connections.current[peerId] = new RTCPeerConnection({
                     iceServers: freeice(),
                 });
+                //console.log("Conn",connections.current);
+                
 
                 // Handle new ice candidate on this peer connection
                 connections.current[peerId].onicecandidate = (event) => {
