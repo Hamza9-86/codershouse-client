@@ -12,10 +12,18 @@ export function useLoading() {
   else if (process.env.NODE_ENV === "development"){
     base_url = base_url;
   }
+  const api = axios.create({
+    withCredentials:true,
+    baseURL: base_url,
+    headers: {
+        'Content-type': 'application/json',
+        Accept: 'application/json',
+    },
+});
   useEffect(() => {
     (async () => {
       try {
-        const { data } = await axios.get(
+        const { data } = await api.get(
           `${base_url}/api/refresh`,
           {
             withCredentials: true,
